@@ -19,35 +19,42 @@ class _RowDropdownButtonState extends State<RowDropdownButton> {
   }
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField(
-      validator: (value) {
-        if(value == 0){
-          return 'Please select a value';
-        }
-      },
-      decoration: InputDecoration(
-        label: Text(widget.title,style: TextStyle(color: Colors.black)),
-        border: OutlineInputBorder(),
-        enabledBorder:  OutlineInputBorder(
-            borderSide: BorderSide(width: 2, color: Colors.yellow)
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(child: Text(widget.title,)),
+        Expanded(
+          child: DropdownButtonFormField(
+            validator: (value) {
+              if(value == 0){
+                return 'Please select a value';
+              }
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              enabledBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Color(0xFF002E94),)
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Color(0xFF002E94),)
+              )
+            ),
+            value: dropdownValue,
+            items: widget.itemList.map((value) {
+              return DropdownMenuItem(
+                child: Text(value),
+                value: widget.itemList.indexOf(value),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                dropdownValue = value;
+                widget.callback(value);
+              });
+            },
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2, color: Colors.yellow)
-        )
-      ),
-      value: dropdownValue,
-      items: widget.itemList.map((value) {
-        return DropdownMenuItem(
-          child: Text(value),
-          value: widget.itemList.indexOf(value),
-        );
-      }).toList(),
-      onChanged: (value) {
-        setState(() {
-          dropdownValue = value;
-          widget.callback(value);
-        });
-      },
+      ],
     );
   }
 }

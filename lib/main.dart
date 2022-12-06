@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hbeep/homepage.dart';
+import 'package:hbeep/bottom_nav_page.dart';
+import 'package:hbeep/main_screen/prediction_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,14 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Hbeep',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.yellow
+          backgroundColor: Color(0xFF002E94),
         )
       ),
-      home: PredictionPage(),
+      home: BottomNavigationPage(),
     );
   }
 }
