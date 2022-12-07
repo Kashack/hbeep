@@ -4,8 +4,9 @@ class MyTextField extends StatelessWidget {
   String Title;
   String HintTitle;
   Function(String)? onChanged;
+  TextInputType? keyboardType;
 
-  MyTextField({required this.Title, required this.HintTitle, required this.onChanged});
+  MyTextField({required this.Title, required this.HintTitle, required this.onChanged,this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,12 @@ class MyTextField extends StatelessWidget {
       children: [
         Expanded(child: Text(Title)),
         Expanded(
-          child: TextField(
+          child: TextFormField(
+            validator: (value) {
+              if(value == ""){
+                return 'Enter a value';
+              }
+            },
             decoration: InputDecoration(
               enabledBorder:  OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: Color(0xFF002E94),)
@@ -27,6 +33,7 @@ class MyTextField extends StatelessWidget {
               ),
 
             ),
+            keyboardType: keyboardType,
             onChanged: onChanged,
           ),
         ),

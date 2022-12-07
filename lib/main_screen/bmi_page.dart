@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hbeep/component/my_text_Field.dart';
-import 'package:hbeep/component/row_dropdownbutton.dart';
 
-class BMIPage extends StatelessWidget {
+class BMIPage extends StatefulWidget {
+  @override
+  State<BMIPage> createState() => _BMIPageState();
+}
+
+class _BMIPageState extends State<BMIPage> {
   final _formKey = GlobalKey<FormState>();
+
   bool isVisible = false;
+
+  double? height;
+
+  double? weight;
+
+  String calculate ="";
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,8 @@ class BMIPage extends StatelessWidget {
                   child: MyTextField(
                     Title: 'Age',
                     HintTitle: '23..',
-                    onChanged: (p0) { },
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {},
                   ),
                 ),
                 Padding(
@@ -37,15 +50,17 @@ class BMIPage extends StatelessWidget {
                   child: MyTextField(
                     Title: 'Weight',
                     HintTitle: 'In Kg',
-                    onChanged: (p0) { },
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => weight = double.parse(value),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MyTextField(
                     Title: 'Height',
-                    HintTitle: 'In feet',
-                    onChanged: (p0) { },
+                    keyboardType: TextInputType.number,
+                    HintTitle: 'In cm',
+                    onChanged: (value) => height = double.parse(value),
                   ),
                 ),
                 Padding(
@@ -53,9 +68,12 @@ class BMIPage extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // print(gender);
-                        // print(married_satus);
-                        // print(smoke);
+                        FocusScope.of(context).unfocus();
+                        height = height! * height! /1000;
+                        calculate = (weight! / height!).toStringAsFixed(2);
+                        setState(() {
+                          isVisible = true;
+                        });
                       }
                     },
                     child: Text('Calculate',
@@ -73,7 +91,8 @@ class BMIPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Your Body Mass Index (BMI) :'),
+                        child:
+                            Text('Your Body Mass Index (BMI) :'),
                       ),
                       Container(
                         width: double.infinity,
@@ -82,15 +101,27 @@ class BMIPage extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Color(0xFF002E94),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16,horizontal: 40),
-                        margin: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
-                        child: Text(
-                          '22.3',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white
-                          ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 40),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                await Clipboard.setData(ClipboardData(text: calculate.toString()));
+                              },
+                              icon: Icon(Icons.paste,color: Colors.white),
+                            ),
+                            Text(
+                              calculate,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                     ],

@@ -22,7 +22,7 @@ class _RowDropdownButtonState extends State<RowDropdownButton> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Expanded(child: Text(widget.title,)),
+        Expanded( child: Text(widget.title,)),
         Expanded(
           child: DropdownButtonFormField(
             validator: (value) {
@@ -30,6 +30,7 @@ class _RowDropdownButtonState extends State<RowDropdownButton> {
                 return 'Please select a value';
               }
             },
+            isExpanded: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               enabledBorder:  OutlineInputBorder(
