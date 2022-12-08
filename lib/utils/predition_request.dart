@@ -6,7 +6,7 @@ Future<http.Response> fetchData(
     {required int gender,
     required double age,
     required int heartDisease,
-    required int married_satus,
+    required int married_status,
     required int work_status,
     required int residence,
     required double glucose_level,
@@ -16,6 +16,6 @@ Future<http.Response> fetchData(
   var client = http.Client();
   return await client.post(Uri.parse('https://hypertension.onrender.com'),
       body: jsonEncode([
-        gender,age,heartDisease,married_satus,work_status,residence,glucose_level,bmi,smoke,stroke
+        gender,age,heartDisease,married_status,work_status,residence,glucose_level,bmi,smoke,stroke
       ]));
 }
