@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hbeep/main_screen/bmi_page.dart';
 import 'package:hbeep/main_screen/home_page.dart';
 import 'package:hbeep/main_screen/prediction_page.dart';
-
 import 'main_screen/user_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {

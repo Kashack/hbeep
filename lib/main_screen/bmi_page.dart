@@ -16,8 +16,7 @@ class _BMIPageState extends State<BMIPage> {
 
   double? weight;
 
-  String calculate ="";
-
+  double calculate = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,8 +68,9 @@ class _BMIPageState extends State<BMIPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         FocusScope.of(context).unfocus();
-                        height = height! * height! /1000;
-                        calculate = (weight! / height!).toStringAsFixed(2);
+                        var newheight = height! * height! /1000;
+                        calculate = weight! / newheight;
+                        print(calculate);
                         setState(() {
                           isVisible = true;
                         });
@@ -110,12 +110,12 @@ class _BMIPageState extends State<BMIPage> {
                           children: [
                             IconButton(
                               onPressed: () async {
-                                await Clipboard.setData(ClipboardData(text: calculate.toString()));
+                                await Clipboard.setData(ClipboardData(text: calculate.toStringAsFixed(2)));
                               },
                               icon: Icon(Icons.paste,color: Colors.white),
                             ),
                             Text(
-                              calculate,
+                              calculate.toStringAsFixed(2),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,

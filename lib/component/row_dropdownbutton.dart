@@ -31,6 +31,10 @@ class _RowDropdownButtonState extends State<RowDropdownButton> {
               }
             },
             isExpanded: true,
+            style: TextStyle(
+              color: Colors.black,
+              overflow: TextOverflow.ellipsis,
+            ),
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               enabledBorder:  OutlineInputBorder(

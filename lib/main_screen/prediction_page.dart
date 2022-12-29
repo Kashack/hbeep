@@ -169,7 +169,15 @@ class _PredictionPageState extends State<PredictionPage> {
                                       },
                                     );
                                   },
-                                );
+                                ).onError((error, stackTrace){
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text('Check your network')));
+                                  print("Error: ${error}");
+                                });
                               } on http.ClientException catch (e) {
                                 setState(() {
                                   _isLoading = false;

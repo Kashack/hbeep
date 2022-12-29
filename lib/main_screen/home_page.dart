@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hbeep/hyper_tips.dart';
 import 'package:hbeep/main_screen/prediction_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,11 +18,32 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                  padding: EdgeInsets.all(16),
+                  margin: EdgeInsets.only(bottom: 30),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xFFFFE9A0),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.lightbulb,
+                            color: Colors.yellow,
+                          ),
+                          Text('Today tips',style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          ),),
+                        ],
+                      ),
+                      Text(tips[Random().nextInt(3)]),
+                    ],
+                  )),
               Text(
                 'Select what you\'d like to do:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Expanded(
                 child: GridView.count(
@@ -42,9 +66,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     ),
                     Container(
                       padding: const EdgeInsets.all(16),
